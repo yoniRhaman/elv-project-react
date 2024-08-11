@@ -14,6 +14,8 @@ const Building: React.FC<BuildingProps> = ({
   buildingId,
   children,
 }) => {
+  const countdownValue = 10; // Example countdown value, can be dynamically set
+
   // Create floors in descending order (from top to bottom)
   const floors = Array.from({ length: numFloors }, (_, i) => (
     <React.Fragment key={i}>
@@ -24,7 +26,7 @@ const Building: React.FC<BuildingProps> = ({
 
   return (
     <div className="building">
-      <Timer initialCountdown={10} /> {/* Add timer above the top floor */}
+      <Timer initialCountdown={countdownValue} /> {/* Pass the countdown value */}
       {floors}
       {children} {/* Display children here */}
     </div>

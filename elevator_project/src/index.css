@@ -214,3 +214,24 @@
   transition: bottom 0.5s ease;
   /* smooth transition */
 }
+.floor {
+  position: relative;
+}
+
+.metal.linear {
+  display: block;
+  margin: 0 auto;
+}
+
+.timer {
+  position: absolute;
+  top: -40px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1em;
+  background-color: #eee;
+  padding: 2px 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
