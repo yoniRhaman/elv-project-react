@@ -8,7 +8,7 @@ type FloorProps = {
 
 const Floor: FC<FloorProps> = ({ number, height, buildingId }) => {
   return (
-    <div className="floor" key={number} style={{ height: `${height}px` }}>
+    <div className="floor" key={number} style={{ height: `${height}px`, border:1 }}>
       <button className=" metal linear ">{number}</button>
     </div>
   );

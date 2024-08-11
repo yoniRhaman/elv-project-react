@@ -8,10 +8,10 @@ type ElevatorProps = {
 const Elevator: FC<ElevatorProps> = ({ alt, position }) => {
   return (
     <img
-      src={`${process.env.PUBLIC_URL}/elv.png`}
+      src={"elv.png"}
       alt={alt}
       style={{
-        position: "absolute",
+        position: "relative",
         top: `${position}px`, // Or use percentage
         transition: "top 0.5s ease", // Smooth transition when moving the elevator
       }}
