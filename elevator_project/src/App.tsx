@@ -12,7 +12,7 @@ function App() {
       <Building numFloors={10} height={100} buildingId={1}>
         {/* Add more floors as needed */}
       </Building>
-      <Elevator alt="Elevator" position={-265} height={100} />
+      <Elevator alt="Elevator" position={-350} height={100} />
     </div>
   );
 }

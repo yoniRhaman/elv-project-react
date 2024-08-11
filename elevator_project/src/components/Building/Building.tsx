@@ -1,5 +1,6 @@
 import React from "react";
 import { Floor } from "../Floor";
+import { Timer } from "../Timer";
 
 type BuildingProps = {
   numFloors: number;
@@ -23,6 +24,7 @@ const Building: React.FC<BuildingProps> = ({
 
   return (
     <div className="building">
+      <Timer initialCountdown={10} /> {/* Add timer above the top floor */}
       {floors}
       {children} {/* Display children here */}
     </div>
