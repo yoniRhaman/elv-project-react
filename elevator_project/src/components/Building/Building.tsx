@@ -1,34 +1,38 @@
-import React from "react";
+import React, { FC, useState } from "react";
 import { Floor } from "../Floor";
-import { Timer } from "../Timer";
+import { Elevator } from "../Elevator";
 
 type BuildingProps = {
   numFloors: number;
   height: number;
   buildingId: number;
-} & React.PropsWithChildren;
+  children?: React.ReactNode;
+};
 
-const Building: React.FC<BuildingProps> = ({
-  numFloors,
-  height,
-  buildingId,
-  children,
-}) => {
-  const countdownValue = 10; // Example countdown value, can be dynamically set
+const Building: FC<BuildingProps> = ({ numFloors, height, buildingId, children }) => {
+  const [requestedFloor, setRequestedFloor] = useState<number | undefined>();
 
-  // Create floors in descending order (from top to bottom)
+  const handleRequestElevator = (floorNumber: number) => {
+    setRequestedFloor(floorNumber);
+  };
+
   const floors = Array.from({ length: numFloors }, (_, i) => (
     <React.Fragment key={i}>
-      <Floor number={numFloors - i} height={height} buildingId={buildingId} />
-      {i < numFloors - 1 && <div className="blackline" />} {/* Black line between each floor */}
+      <Floor
+        number={numFloors - i}
+        height={height}
+        buildingId={buildingId}
+        onRequestElevator={handleRequestElevator}
+      />
+      {i < numFloors - 1 && <div className="blackline" />}
     </React.Fragment>
   ));
 
   return (
     <div className="building">
-      <Timer initialCountdown={countdownValue} /> {/* Pass the countdown value */}
       {floors}
-      {children} {/* Display children here */}
+      <Elevator alt="Elevator" position={-280} height={height} destinationFloor={requestedFloor} />
+      {children}
     </div>
   );
 };
