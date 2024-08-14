@@ -9,7 +9,12 @@ type BuildingProps = {
   children?: React.ReactNode;
 };
 
-const Building: FC<BuildingProps> = ({ numFloors, height, buildingId, children }) => {
+const Building: FC<BuildingProps> = ({
+  numFloors,
+  height,
+  buildingId,
+  children,
+}) => {
   const [requestedFloor, setRequestedFloor] = useState<number | undefined>();
 
   const handleRequestElevator = (floorNumber: number) => {
@@ -29,10 +34,19 @@ const Building: FC<BuildingProps> = ({ numFloors, height, buildingId, children }
   ));
 
   return (
-    <div className="building">
-      {floors}
-      <Elevator alt="Elevator" position={-280} height={height} destinationFloor={requestedFloor} />
-      {children}
+    <div className="building row ">
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <div>{floors}</div>
+        <div style={{position: "relative", backgroundColor: "red"}}>
+          <Elevator
+            alt="Elevator"
+            position={0}
+            height={height}
+            destinationFloor={requestedFloor}
+          />
+        </div>
+        {children}
+      </div>
     </div>
   );
 };

@@ -7,19 +7,24 @@ type ElevatorProps = {
   destinationFloor?: number;
 };
 
-const Elevator: FC<ElevatorProps> = ({ alt, position, height, destinationFloor }) => {
+const Elevator: FC<ElevatorProps> = ({
+  alt,
+  position,
+  height,
+  destinationFloor,
+}) => {
   const [currentPosition, setCurrentPosition] = useState(position);
-
+  const [floorsToMove, setFloorsToMove] = useState(0);
   useEffect(() => {
     if (destinationFloor !== undefined) {
-      const floorsToMove = Math.abs(destinationFloor - 1); // Assuming the elevator starts from floor 1
-      const travelTime = floorsToMove * 0.5; // 0.5 seconds per floor
+      const _floorsToMove = Math.abs(destinationFloor - currentPosition - 1); // Assuming the elevator starts from floor 1
+      // const travelTime = _floorsToMove * 0.5; // 0.5 seconds per floor
+      setFloorsToMove(_floorsToMove);
+      setCurrentPosition(destinationFloor - 1);
 
-      setCurrentPosition((destinationFloor - 1) * height);
-
-      setTimeout(() => {
-        // Delay of 2 seconds on arrival
-      }, travelTime * 1000 + 2000);
+      // setTimeout(() => {
+      //   // Delay of 2 seconds on arrival
+      // }, travelTime * 1000 + 2000);
     }
   }, [destinationFloor, height]);
 
@@ -29,10 +34,10 @@ const Elevator: FC<ElevatorProps> = ({ alt, position, height, destinationFloor }
       alt={alt}
       style={{
         position: "absolute",
-        bottom: `${currentPosition}px`,
-        left: "120px",
+        bottom: `${currentPosition * height}px`,
+        // left: "120px",
         height: `${height}px`,
-        transition: "bottom 0.5s ease", // Smooth transition when moving the elevator
+        transition: `bottom ${floorsToMove}s ease`, // Smooth transition when moving the elevator
       }}
     />
   );
