@@ -1,21 +1,27 @@
+// App.tsx
+
 import React from "react";
-import Building from "./components/Building/Building";
-import "./reset.css";
-import "./index.css";
+import BuildingFactory from "./factories/BuildingFactory";
 
 function App() {
   return (
     <div
       className="App"
-      style={{ display: "flex", flexDirection: "row", gap: "160px" }}
+      style={{ display: "flex", flexDirection: "row", gap: "260px" }}
     >
-      {/* Example Building with Floors and an Elevator */}
-      <Building numFloors={10} height={100} buildingId={1}>
-        {/* You can now pass children here if needed */}
-      </Building>
-      <Building numFloors={10} height={100} buildingId={2}>
-        {/* You can now pass children here if needed */}
-      </Building>
+      {/* יצירת בניינים באמצעות ה-Factory */}
+      {BuildingFactory.createBuilding({
+        numFloors: 10,
+        height: 100,
+        buildingId: 1,
+        numElevators: 3,
+      })}
+      {BuildingFactory.createBuilding({
+        numFloors: 5,
+        height: 100,
+        buildingId: 2,
+        numElevators: 1,
+      })}
     </div>
   );
 }

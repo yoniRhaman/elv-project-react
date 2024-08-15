@@ -25,7 +25,7 @@ const Elevator: FC<ElevatorProps> = ({
       const _floorsToMove = Math.abs(newPosition - currentPosition);
 
       // חישוב הזמן שייקח למעלית להגיע
-      setFloorsToMove((_floorsToMove / (height + blacklineHeight)) * 0.5); 
+      setFloorsToMove((_floorsToMove / (height + blacklineHeight)) * 0.5);
       setCurrentPosition(newPosition);
     }
   }, [destinationFloor, height, blacklineHeight]);

@@ -1,18 +1,20 @@
-import React, { FC, ReactNode, useState } from "react";
+import React, { FC, useState } from "react";
 import { Floor } from "../Floor";
-import { Elevator } from "../Elevator";
+import ElevatorGroup from "../Elevator/ElevatorGroup";
 
 type BuildingProps = {
   numFloors: number;
   height: number;
   buildingId: number;
-  children?: ReactNode; // הוספת children כאן
+  numElevators: number;
+  children?: React.ReactNode;
 };
 
 const Building: FC<BuildingProps> = ({
   numFloors,
   height,
   buildingId,
+  numElevators,
   children,
 }) => {
   const [requestedFloor, setRequestedFloor] = useState<number | undefined>();
@@ -29,26 +31,24 @@ const Building: FC<BuildingProps> = ({
         buildingId={buildingId}
         onRequestElevator={handleRequestElevator}
       />
-      {i < numFloors - 1 && (
-        <div style={{ height: `7px`, backgroundColor: "black" }} />
-      )}
+      {i < numFloors - 1 && <div className="blackline" />}
     </React.Fragment>
   ));
 
   return (
-    <div className="building row">
+    <div
+      className="building row"
+      style={{ display: "flex", justifyContent: "end" }}
+    >
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div>{floors}</div>
-        <div style={{ position: "relative", backgroundColor: "red" }}>
-          <Elevator
-            alt="Elevator"
-            position={0}
-            height={height}
-            destinationFloor={requestedFloor}
-            blacklineHeight={7} 
-          />
-        </div>
-        {children} {/* כאן אתה יכול להשתמש ב-children */}
+        <div className="floors-stack">{floors}</div>
+        <ElevatorGroup
+          numElevators={numElevators}
+          height={height}
+          destinationFloor={requestedFloor}
+          blacklineHeight={7}
+        />
+        {children}
       </div>
     </div>
   );
