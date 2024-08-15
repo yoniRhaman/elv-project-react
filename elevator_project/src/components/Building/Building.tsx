@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, ReactNode, useState } from "react";
 import { Floor } from "../Floor";
 import { Elevator } from "../Elevator";
 
@@ -6,7 +6,7 @@ type BuildingProps = {
   numFloors: number;
   height: number;
   buildingId: number;
-  children?: React.ReactNode;
+  children?: ReactNode; // הוספת children כאן
 };
 
 const Building: FC<BuildingProps> = ({
@@ -29,23 +29,26 @@ const Building: FC<BuildingProps> = ({
         buildingId={buildingId}
         onRequestElevator={handleRequestElevator}
       />
-      {i < numFloors - 1 && <div className="blackline" />}
+      {i < numFloors - 1 && (
+        <div style={{ height: `7px`, backgroundColor: "black" }} />
+      )}
     </React.Fragment>
   ));
 
   return (
-    <div className="building row ">
+    <div className="building row">
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div>{floors}</div>
-        <div style={{position: "relative", backgroundColor: "red"}}>
+        <div style={{ position: "relative", backgroundColor: "red" }}>
           <Elevator
             alt="Elevator"
             position={0}
             height={height}
             destinationFloor={requestedFloor}
+            blacklineHeight={7} 
           />
         </div>
-        {children}
+        {children} {/* כאן אתה יכול להשתמש ב-children */}
       </div>
     </div>
   );

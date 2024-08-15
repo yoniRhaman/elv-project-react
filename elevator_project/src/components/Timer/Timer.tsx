@@ -1,39 +1,39 @@
 import React, { useState, useEffect } from 'react';
 
 type TimerProps = {
-  initialCountdown: number; // Initial countdown value in seconds
-  onComplete?: () => void;  // Optional callback function when countdown reaches zero
+  initialCountdown: number; // ערך ההתחלתי של הטיימר בשניות
+  onComplete?: () => void;  // פונקציה אופציונלית שתיקרא כאשר הטיימר מגיע לאפס
 };
 
 const Timer: React.FC<TimerProps> = ({ initialCountdown, onComplete }) => {
   const [countdown, setCountdown] = useState<number>(
-    Math.max(initialCountdown, 0) // Ensure the initial countdown is not negative
+    Math.max(initialCountdown, 0) // מבטיח שהערך ההתחלתי של הטיימר לא יהיה שלילי
   );
 
   useEffect(() => {
-    // If countdown is zero or negative, do nothing
+    // אם הטיימר הוא אפס או שלילי, לא עושים כלום
     if (countdown <= 0) return;
 
-    // Set up an interval to update the countdown every second
+    // יצירת אינטרוול לעדכון הטיימר כל שניה
     const intervalId = setInterval(() => {
       setCountdown(prevCountdown => {
         if (prevCountdown <= 1) {
-          // If countdown is 1 or less, call the onComplete callback and stop the interval
+          // אם הטיימר הוא 1 או פחות, לקרוא לפונקציה onComplete ולעצור את האינטרוול
           if (onComplete) onComplete();
-          clearInterval(intervalId); // Stop the interval
+          clearInterval(intervalId); // עצירת האינטרוול
           return 0;
         }
         return prevCountdown - 1;
       });
-    }, 1000); // Update every second
+    }, 1000); // לעדכן כל שניה
 
-    // Cleanup the interval on component unmount or when countdown changes
+    // ניקוי האינטרוול כאשר הקומפוננטה מתפרקת או כאשר הטיימר משתנה
     return () => clearInterval(intervalId);
   }, [countdown, onComplete]);
 
   return (
     <div className="metal timer">
-      {countdown.toString().padStart(2, '0')} {/* Display countdown with leading zero */}
+      {countdown.toString().padStart(2, '0')} {/* מציג את הטיימר עם אפסים מובילים במקרה הצורך */}
     </div>
   );
 };

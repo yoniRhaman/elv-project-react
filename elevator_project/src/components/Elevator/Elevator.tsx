@@ -2,9 +2,10 @@ import React, { FC, useState, useEffect } from "react";
 
 type ElevatorProps = {
   alt: string;
-  position: number; // Position in pixels from the bottom
-  height: number; // Height of the elevator (and floor)
-  destinationFloor?: number;
+  position: number; // מיקום התחלתי בפיקסלים מהתחתית
+  height: number; // גובה המעלית (והקומה)
+  destinationFloor?: number; // הקומה אליה המעלית מיועדת להגיע
+  blacklineHeight?: number; // גובה הקו השחור בין הקומות
 };
 
 const Elevator: FC<ElevatorProps> = ({
@@ -12,21 +13,22 @@ const Elevator: FC<ElevatorProps> = ({
   position,
   height,
   destinationFloor,
+  blacklineHeight = 7, // גובה הקו השחור מוגדר כברירת מחדל ל־7 פיקסלים
 }) => {
   const [currentPosition, setCurrentPosition] = useState(position);
   const [floorsToMove, setFloorsToMove] = useState(0);
+
   useEffect(() => {
     if (destinationFloor !== undefined) {
-      const _floorsToMove = Math.abs(destinationFloor - currentPosition - 1); // Assuming the elevator starts from floor 1
-      // const travelTime = _floorsToMove * 0.5; // 0.5 seconds per floor
-      setFloorsToMove(_floorsToMove);
-      setCurrentPosition(destinationFloor - 1);
+      // חישוב המיקום החדש בהתחשב בגובה הקומה ובגובה הקו השחור
+      const newPosition = (destinationFloor - 1) * (height + blacklineHeight);
+      const _floorsToMove = Math.abs(newPosition - currentPosition);
 
-      // setTimeout(() => {
-      //   // Delay of 2 seconds on arrival
-      // }, travelTime * 1000 + 2000);
+      // חישוב הזמן שייקח למעלית להגיע
+      setFloorsToMove((_floorsToMove / (height + blacklineHeight)) * 0.5); 
+      setCurrentPosition(newPosition);
     }
-  }, [destinationFloor, height]);
+  }, [destinationFloor, height, blacklineHeight]);
 
   return (
     <img
@@ -34,10 +36,9 @@ const Elevator: FC<ElevatorProps> = ({
       alt={alt}
       style={{
         position: "absolute",
-        bottom: `${currentPosition * height}px`,
-        // left: "120px",
+        bottom: `${currentPosition}px`,
         height: `${height}px`,
-        transition: `bottom ${floorsToMove}s ease`, // Smooth transition when moving the elevator
+        transition: `bottom ${floorsToMove}s ease`, // מעבר חלק
       }}
     />
   );
