@@ -8,7 +8,9 @@ interface BuildingConfig {
   height: number;
   buildingId: number;
   numElevators: number;
+  
   children?: React.ReactNode;
+
 }
 
 class BuildingFactory {
@@ -19,6 +21,7 @@ class BuildingFactory {
       buildingId: config.buildingId,
       numElevators: config.numElevators,
       children: config.children,
+      
     });
   }
 }

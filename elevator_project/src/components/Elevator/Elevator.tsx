@@ -6,6 +6,10 @@ type ElevatorProps = {
   height: number; // גובה המעלית (והקומה)
   destinationFloor?: number; // הקומה אליה המעלית מיועדת להגיע
   blacklineHeight?: number; // גובה הקו השחור בין הקומות
+  setInUse: React.Dispatch<React.SetStateAction<boolean[]>>;
+  inUse: boolean;
+  elevatorToMove: number;
+  elevatorNumber: number;
 };
 
 const Elevator: FC<ElevatorProps> = ({
@@ -14,23 +18,43 @@ const Elevator: FC<ElevatorProps> = ({
   height,
   destinationFloor,
   blacklineHeight = 7, // גובה הקו השחור מוגדר כברירת מחדל ל־7 פיקסלים
+  setInUse,
+  inUse,
+  elevatorToMove,
+  elevatorNumber,
 }) => {
   const [currentPosition, setCurrentPosition] = useState(position);
   const [floorsToMove, setFloorsToMove] = useState(0);
 
   useEffect(() => {
-    if (destinationFloor !== undefined) {
-
-
-      // חישוב המיקום החדש בהתחשב בגובה הקומה ובגובה הקו השחור
-      const newPosition = (destinationFloor - 1) * (height + blacklineHeight);
-      const _floorsToMove = Math.abs(newPosition - currentPosition);
-
-      // חישוב הזמן שייקח למעלית להגיע
-      setFloorsToMove((_floorsToMove / (height + blacklineHeight)) * 0.5);
-      setCurrentPosition(newPosition);
+    if (destinationFloor === undefined) {
+      return;
     }
-  }, [destinationFloor, height, blacklineHeight]);
+    if (elevatorToMove !== elevatorNumber) {
+      return;
+    }
+    console.log(elevatorToMove, "bar");
+
+    // חישוב המיקום החדש בהתחשב בגובה הקומה ובגובה הקו השחור
+    const newPosition = (destinationFloor - 1) * (height + blacklineHeight);
+    const _floorsToMove = Math.abs(newPosition - currentPosition);
+
+    // חישוב הזמן שייקח למעלית להגיע
+    setFloorsToMove((_floorsToMove / (height + blacklineHeight)) * 0.5);
+    setCurrentPosition(newPosition);
+    setTimeout(() => {
+      setInUse((prev) => {
+        console.log(prev, "b1");
+
+        const copy = [...prev];
+        copy[elevatorToMove] = false;
+
+        console.log(copy, "b2");
+        return copy;
+      });
+    }, 3000);
+  }, [destinationFloor]);
+  // }, [destinationFloor, height, blacklineHeight]);
 
   return (
     <img

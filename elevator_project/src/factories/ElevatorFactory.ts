@@ -9,6 +9,10 @@ interface ElevatorConfig {
   height: number; // גובה המעלית (והקומה)
   destinationFloor?: number; // הקומה אליה המעלית מיועדת להגיע
   blacklineHeight?: number; // גובה הקו השחור בין הקומות
+  setInUse: React.Dispatch<React.SetStateAction<boolean[]>>;
+  inUse: boolean;
+  elevatorToMove: number;
+  elevatorNumber:number;
 }
 
 class ElevatorFactory {
@@ -19,6 +23,10 @@ class ElevatorFactory {
       height: config.height,
       destinationFloor: config.destinationFloor,
       blacklineHeight: config.blacklineHeight,
+      inUse: config.inUse,
+      setInUse: config.setInUse,
+      elevatorToMove: config.elevatorToMove,
+      elevatorNumber:config.elevatorNumber,
     });
   }
 }

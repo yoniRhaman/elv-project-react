@@ -49,6 +49,7 @@ const Building: FC<BuildingProps> = ({
           height={height}
           destinationFloor={requestedFloor}
           blacklineHeight={7}
+          buildingId={buildingId}
         />
         {children}
       </div>

@@ -22,6 +22,13 @@ function App() {
         buildingId: 2,
         numElevators: 1,
       })}
+      
+      {BuildingFactory.createBuilding({
+        numFloors: 5,
+        height: 100,
+        buildingId: 3,
+        numElevators: 5,
+      })}
     </div>
   );
 }
