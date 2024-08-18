@@ -41,7 +41,9 @@ const Building: FC<BuildingProps> = ({
       style={{ display: "flex", justifyContent: "end" }}
     >
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <div className="floors-stack">{floors}</div>
+        <div className="floors-stack" style={{ position: "relative" }}>
+          {floors}
+        </div>
         <ElevatorGroup
           numElevators={numElevators}
           height={height}

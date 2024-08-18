@@ -20,6 +20,8 @@ const Elevator: FC<ElevatorProps> = ({
 
   useEffect(() => {
     if (destinationFloor !== undefined) {
+
+
       // חישוב המיקום החדש בהתחשב בגובה הקומה ובגובה הקו השחור
       const newPosition = (destinationFloor - 1) * (height + blacklineHeight);
       const _floorsToMove = Math.abs(newPosition - currentPosition);
@@ -35,10 +37,10 @@ const Elevator: FC<ElevatorProps> = ({
       src={"elv.png"}
       alt={alt}
       style={{
-        position: "absolute",
-        bottom: `${currentPosition}px`,
+        position: "relative",
+        top: `-${currentPosition}px`,
         height: `${height}px`,
-        transition: `bottom ${floorsToMove}s ease`, // מעבר חלק
+        transition: `${floorsToMove}s ease`, // מעבר חלק
       }}
     />
   );

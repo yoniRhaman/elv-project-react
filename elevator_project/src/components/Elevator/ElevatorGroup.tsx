@@ -22,9 +22,21 @@ const ElevatorGroup: FC<ElevatorGroupProps> = ({
   }, [numElevators]);
 
   return (
-    <div style={{ position: "relative" }}>
-   
-        {elevators.map((position, index) => (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        position: "relative",
+      }}
+    >
+      {elevators.map((position, index) => (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column-reverse",
+            position: "relative",
+          }}
+        >
           <Elevator
             key={index}
             alt={`Elevator ${index + 1}`}
@@ -33,8 +45,8 @@ const ElevatorGroup: FC<ElevatorGroupProps> = ({
             destinationFloor={destinationFloor}
             blacklineHeight={blacklineHeight}
           />
-        ))}
-     
+        </div>
+      ))}
     </div>
   );
 };

@@ -8,27 +8,37 @@ type FloorProps = {
   onRequestElevator: (floorNumber: number) => void; // פונקציה שמופעלת כאשר מבקשים מעלית
 };
 
-const Floor: FC<FloorProps> = ({ number, height, buildingId, onRequestElevator }) => {
+const Floor: FC<FloorProps> = ({
+  number,
+  height,
+  buildingId,
+  onRequestElevator,
+}) => {
   const [showTimer, setShowTimer] = useState(false); // האם להציג את הטיימר או לא
   const [countdown, setCountdown] = useState(0); // זמן הספירה לאחור עד שהמעלית תגיע
 
   const handleButtonClick = () => {
     // חישוב הזמן הצפוי להגעת המעלית, בהנחה שהיא מתחילה בקומה הראשונה
-    const timeToArrival = Math.abs(number - 1) * 0.5; 
+    const timeToArrival = Math.abs(number - 1) * 0.5;
     setCountdown(Math.ceil(timeToArrival)); // עיגול זמן ההגעה כלפי מעלה ושמירתו בטיימר
     setShowTimer(true); // הצגת הטיימר
     onRequestElevator(number); // הפעלת הפונקציה שמבקשת את המעלית
 
     // הסתרת הטיימר לאחר שהמעלית הגיעה
-    setTimeout(() => setShowTimer(false), timeToArrival * 1000 + 2000); 
+    setTimeout(() => setShowTimer(false), timeToArrival * 1000 + 2000);
   };
 
   return (
-    <div className="floor" key={number} style={{ height: `${height}px`, border: "1px solid black" }}>
+    <div
+      className="floor"
+      key={number}
+      style={{ height: `${height}px`, border: "1px solid black", position:"relative" }}
+    >
       <button onClick={handleButtonClick} className="metal linear">
         {number} {/* הצגת מספר הקומה על הכפתור */}
       </button>
-      {showTimer && <Timer initialCountdown={countdown} />} {/* הצגת הטיימר אם צריך */}
+      {showTimer && <Timer initialCountdown={countdown} />}{" "}
+      {/* הצגת הטיימר אם צריך */}
     </div>
   );
 };
