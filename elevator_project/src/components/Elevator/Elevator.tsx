@@ -44,17 +44,17 @@ const Elevator: FC<ElevatorProps> = ({
     setCurrentPosition(newPosition);
     setTimeout(() => {
       setInUse((prev) => {
-        console.log(prev, "b1");
+        
 
         const copy = [...prev];
         copy[elevatorToMove] = false;
 
-        console.log(copy, "b2");
+        
         return copy;
       });
     }, 3000);
   }, [destinationFloor]);
-  // }, [destinationFloor, height, blacklineHeight]);
+  
 
   return (
     <img
